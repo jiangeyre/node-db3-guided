@@ -1,17 +1,18 @@
 const express = require('express');
 
 const db = require('../data/db-config.js');
+const Users = require('./model.js');
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  db('users')
-  .then(users => {
-    res.json(users);
-  })
-  .catch (err => {
-    res.status(500).json({ message: 'Failed to get users' });
-  });
+  Users.list()
+    .then(users => {
+      res.json(users);
+    })
+    .catch (err => {
+      res.status(500).json({ message: 'Failed to get users' });
+    });
 });
 
 router.get('/:id', (req, res) => {
