@@ -1,31 +1,33 @@
-const db = require('../data/db-config.js');
+const db = require("../data/db-config.js");
 
 // above the fold
 module.exports = {
     list,
-    findByID,
-    insert, 
+    findById,
+    insert,
 };
+
+// don't forget to "return" the call to the database
 
 // implementation details
 function list() {
-    // select * from users
-    return db.select('*').from('users');
+    // select * fom users;
+    return db.select("*").from("users");
     // return db('users'); // does the same thing
-};
+}
 
-function findByID(userId) {
+function findById(userId) {
     // select * from users where id = ?
-    return db('users')
+    return db("users")
         .where({ id: userId })
         .first();
-    // return db('users').where('id', userID);
-};
+    // return db("users").where('id', userId).first();
+}
 
 function insert(user) {
-    return db('users')
+    return db("users")
         .insert(user)
         .then(([id]) => {
-            return findByID(id);
+            return findById(id);
         });
-};
+}
